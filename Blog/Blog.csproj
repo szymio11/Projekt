@@ -181,6 +181,22 @@
     <Compile Include="Migrations\201611102131065_add-tables.Designer.cs">
       <DependentUpon>201611102131065_add-tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611102136220_add-data-to-tables.cs" />
+    <Compile Include="Migrations\201611102136220_add-data-to-tables.Designer.cs">
+      <DependentUpon>201611102136220_add-data-to-tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611102141502_add-data-to-Post.cs" />
+    <Compile Include="Migrations\201611102141502_add-data-to-Post.Designer.cs">
+      <DependentUpon>201611102141502_add-data-to-Post.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611102145077_add-data-to-table-post.cs" />
+    <Compile Include="Migrations\201611102145077_add-data-to-table-post.Designer.cs">
+      <DependentUpon>201611102145077_add-data-to-table-post.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611102150382_add-data-to-table-TagPosts.cs" />
+    <Compile Include="Migrations\201611102150382_add-data-to-table-TagPosts.Designer.cs">
+      <DependentUpon>201611102150382_add-data-to-table-TagPosts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -264,6 +280,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611102131065_add-tables.resx">
       <DependentUpon>201611102131065_add-tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611102136220_add-data-to-tables.resx">
+      <DependentUpon>201611102136220_add-data-to-tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611102141502_add-data-to-Post.resx">
+      <DependentUpon>201611102141502_add-data-to-Post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611102145077_add-data-to-table-post.resx">
+      <DependentUpon>201611102145077_add-data-to-table-post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611102150382_add-data-to-table-TagPosts.resx">
+      <DependentUpon>201611102150382_add-data-to-table-TagPosts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
