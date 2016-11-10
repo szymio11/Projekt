@@ -177,10 +177,17 @@
     <Compile Include="Migrations\201611102051109_inicjalizacja.Designer.cs">
       <DependentUpon>201611102051109_inicjalizacja.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611102131065_add-tables.cs" />
+    <Compile Include="Migrations\201611102131065_add-tables.Designer.cs">
+      <DependentUpon>201611102131065_add-tables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -254,6 +261,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201611102051109_inicjalizacja.resx">
       <DependentUpon>201611102051109_inicjalizacja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611102131065_add-tables.resx">
+      <DependentUpon>201611102131065_add-tables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
