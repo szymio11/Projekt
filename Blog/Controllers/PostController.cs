@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Blog.Models;
+using Blog.ViewModels;
+using System.Data.Entity.Infrastructure;
 
 namespace Blog.Controllers
 {
@@ -40,6 +42,9 @@ namespace Blog.Controllers
         public ActionResult Create()
         {
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name");
+            var post = new Post();
+            post.Tags= new List<Tag>();
+            PopulateAssignedTagData(post);
             return View();
         }
 
@@ -48,15 +53,24 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PostID,Title,Description,CreationDate,CategoryID")] Post post)
+        public ActionResult Create([Bind(Include = "PostID,Title,Description,CreationDate,CategoryID")] Post post, string[] selectedTags)
         {
+            if (selectedTags != null)
+            {
+                post.Tags = new List<Tag>();
+                foreach (var tag in selectedTags)
+                {
+                    var tagToAdd = db.Tags.Find(int.Parse(tag));
+                    post.Tags.Add(tagToAdd);
+                }
+            }
             if (ModelState.IsValid)
             {
                 db.Posts.Add(post);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            PopulateAssignedTagData(post);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", post.CategoryID);
             return View(post);
         }
@@ -68,12 +82,17 @@ namespace Blog.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Post post = db.Posts.Find(id);
+            Post post = db.Posts
+            .Include(i => i.Tags)
+            .Where(i => i.PostID == id)
+            .Single();
+            
             if (post == null)
             {
                 return HttpNotFound();
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", post.CategoryID);
+            PopulateAssignedTagData(post);
             return View(post);
         }
 
@@ -82,16 +101,37 @@ namespace Blog.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PostID,Title,Description,CreationDate,CategoryID")] Post post)
+        public ActionResult Edit(int? id, string[] selectedTags)
         {
-            if (ModelState.IsValid)
+            if (id == null)
             {
-                db.Entry(post).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", post.CategoryID);
-            return View(post);
+            var PostToUpdate = db.Posts
+                 .Include(i => i.Tags)
+                 .Where(i => i.PostID == id)
+                 .Single();
+
+            if (TryUpdateModel(PostToUpdate, "",
+     new string[] { "PostID", "Title", "Description", "CreationDate", "CategoryID" }))
+            {
+                try
+                {
+                    UpdatePostTags(selectedTags, PostToUpdate);
+                    db.Entry(PostToUpdate).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (RetryLimitExceededException /* dex */)
+                {
+                    //Log the error (uncomment dex variable name and add a line here to write a log.
+                    ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists, see your system administrator.");
+                }
+            }
+            ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", PostToUpdate.CategoryID);
+            PopulateAssignedTagData(PostToUpdate);
+            return View(PostToUpdate);
         }
 
         // GET: Post/Delete/5
@@ -127,6 +167,51 @@ namespace Blog.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private void PopulateAssignedTagData(Post post)
+        {
+            var allTags = db.Tags;
+            var postTags = new HashSet<int>(post.Tags.Select(c => c.TagID));
+            var viewModel = new List<PostDataIndex>();
+            foreach (var tag in allTags)
+            {
+                viewModel.Add(new PostDataIndex
+                {
+                    TagID= tag.TagID,
+                    Name = tag.Name,
+                    Assigned = postTags.Contains(tag.TagID)
+                });
+            }
+            ViewBag.Tags = viewModel;
+        }
+        private void UpdatePostTags(string[] selectedTags, Post PostToUpdate)
+        {
+            if (selectedTags == null)
+            {
+                PostToUpdate.Tags = new List<Tag>();
+                return;
+            }
+
+            var selectedTagsHS = new HashSet<string>(selectedTags);
+            var PostTags= new HashSet<int>
+                (PostToUpdate.Tags.Select(c => c.TagID));
+            foreach (var tag in db.Tags)
+            {
+                if (selectedTagsHS.Contains(tag.TagID.ToString()))
+                {
+                    if (!PostTags.Contains(tag.TagID))
+                    {
+                        PostToUpdate.Tags.Add(tag);
+                    }
+                }
+                else
+                {
+                    if (PostTags.Contains(tag.TagID))
+                    {
+                        PostToUpdate.Tags.Remove(tag);
+                    }
+                }
+            }
         }
     }
 }
