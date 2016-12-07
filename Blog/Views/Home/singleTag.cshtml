@@ -1,0 +1,30 @@
+﻿@model Blog.Models.Tag
+
+@{
+    ViewBag.Title = @Html.DisplayNameFor(model => model.Name);
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tag</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            Posty
+        </dt>
+        <dd>
+            @foreach(var item in Model.Posts)
+            { 
+                    @item.PostID @:  
+            }
+        </dd>
+    </dl>
+</div>

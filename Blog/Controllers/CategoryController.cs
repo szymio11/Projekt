@@ -10,17 +10,20 @@ using Blog.Models;
 
 namespace Blog.Controllers
 {
+    [Authorize]
     public class CategoryController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Category
+        
         public ActionResult Index()
         {
             return View(db.Categories.ToList());
         }
 
         // GET: Category/Details/5
+      
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -34,8 +37,8 @@ namespace Blog.Controllers
             }
             return View(category);
         }
-
         // GET: Category/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -59,6 +62,7 @@ namespace Blog.Controllers
         }
 
         // GET: Category/Edit/5
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -90,6 +94,7 @@ namespace Blog.Controllers
         }
 
         // GET: Category/Delete/5
+     
         public ActionResult Delete(int? id)
         {
             if (id == null)

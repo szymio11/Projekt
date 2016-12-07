@@ -1,9 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
-     background: url('../img/photo1.jpg') no-repeat center center fixed !important; 
-
-  background-size: cover;
+      background-image: url('Image URL');
 }
 
 /* Set padding to keep content from hitting the edges */

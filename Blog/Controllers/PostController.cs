@@ -10,6 +10,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace Blog.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
        

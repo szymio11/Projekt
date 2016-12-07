@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Blog.Models;
 using Blog.ViewModels;
+using System.Net;
 
 namespace Blog.Controllers
 {
@@ -17,19 +17,44 @@ namespace Blog.Controllers
             viewModel.Categories = db.Categories.ToList();
             return View(viewModel);
         }
-
-        public ActionResult About()
+        public ActionResult singleCategory(int? id)
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Category category= db.Categories.Find(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
         }
-
-        public ActionResult Contact()
+        public ActionResult singleTag(int? id)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Tag tag = db.Tags.Find(id);
+            if (tag == null)
+            {
+                return HttpNotFound();
+            }
+            return View(tag);
+        }
+        public ActionResult singlePost(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Post post = db.Posts.Find(id);
+            if (post == null)
+            {
+                return HttpNotFound();
+            }
+            return View(post);
         }
     }
 }
