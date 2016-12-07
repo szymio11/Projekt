@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using Blog.Models;
 using Blog.ViewModels;
@@ -14,6 +12,7 @@ namespace Blog.Controllers
 {
     public class PostController : Controller
     {
+       
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Post
@@ -38,6 +37,8 @@ namespace Blog.Controllers
             return View(post);
         }
 
+        [Authorize]
+        
         // GET: Post/Create
         public ActionResult Create()
         {
