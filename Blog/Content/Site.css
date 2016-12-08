@@ -1,9 +1,10 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 60px;
     padding-bottom: 20px;
-      background-image: url('Image URL');
+     background: url('../img/pw_maze_white_@2X.png') repeat fixed; 
+  	font-family: 'Roboto Condensed', sans-serif;
+  min-height: 700px;
 }
-
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

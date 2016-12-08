@@ -1,41 +1,39 @@
 ﻿@model Blog.Models.Post
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Html.DisplayFor(model => model.Title);
 }
 
-<h2>Details</h2>
+    <div class="row">
+        <div class="col-md-8 ">
+            <h1>@Html.DisplayFor(model => model.Title)</h1>
+            <p class="lead">@Html.DisplayFor(model => model.Description)</p>
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
+            <hr>
+            <div class="tags">
+                @foreach (var tag in Model.Tags)
+                {
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
+                <span class="label label-default">@tag.Name</span>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
+                }
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
+        </div>
+        <div class="col-md-4">
+            <div class="well">
+                <dl class="dl-horizontal">
+                    <label>Category</label>
+                    <p>@Html.DisplayFor(model => model.Category.Name)</p>
+                </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-
-    </dl>
-</div>
-
+                <dl class="dl-horizontal">
+                    <label>Created at:</label>
+                    <p>@Html.DisplayFor(model => model.CreationDate)</p>
+                </dl>
+                <hr>
+                
+        </div>
+    </div>
+        </div>
 
