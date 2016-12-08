@@ -4,35 +4,33 @@
     ViewBag.Title = @Html.DisplayFor(model => model.Title);
 }
 
-    <div class="row">
+<div class="row">
+
+    <div class="col-md-8 col-md-offset-2">
         <h1>@Html.DisplayFor(model => model.Title)</h1>
         <hr />
-        <div class="col-md-8 ">
-            <p class="lead">@Html.DisplayFor(model => model.Description)</p>
-
-            <hr>
-            <div class="tags">
-                @foreach (var tag in Model.Tags)
-                {
+        <h6>@String.Format("{0:d MMMM yyyy}", Model.CreationDate)</h6>
+        <p class="well">@Html.DisplayFor(model => model.Description)</p>
+        <hr>
+        <div class="tags">
+            @foreach (var tag in Model.Tags)
+            {
                 <span class="label label-default">@tag.Name</span>
-                }
-            </div>
-
+            }
         </div>
-        <div class="col-md-4">
-            <div class="well">
-                <dl class="dl-horizontal">
-                    <label>Category</label>
-                    <p>@Html.DisplayFor(model => model.Category.Name)</p>
-                </dl>
-
-                <dl class="dl-horizontal">
-                    <label>Created at:</label>
-                    <p>@String.Format("{0:d MMMM yyyy}", Model.CreationDate)</p>
-                </dl>
-                <hr>
-                
-        </div>
+        <div id="disqus_thread"></div>
+        <script>
+            (function () {
+                var d = document, s = d.createElement('script');
+                s.src = '//blog-drqftb8h7e.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+        <noscript>
+            Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">
+                comments powered by Disqus.
+            </a>
+        </noscript>
     </div>
-        </div>
-
+</div>

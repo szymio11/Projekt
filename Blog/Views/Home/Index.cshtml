@@ -1,9 +1,9 @@
 ﻿@model Blog.ViewModels.IndexViewModels
 @{
-   
-        ViewBag.Title = "Home Page";
-    
-   
+
+    ViewBag.Title = "Home Page";
+
+
 }
 
 <div class="row">
@@ -18,32 +18,33 @@
     <div class="col-md-8 well">
         @foreach (var post in Model.Posts)
         {
-        <div class="post ">
-            <h3>@post.Title</h3>
-            <h6>@String.Format("{0:d MMMM yyyy}", post.CreationDate)</h6>
-            <p>@post.Description</p>
-            @Html.ActionLink("Czytaj Dalej..", "singlePost","Home", new { id = post.PostID }, new { @class = "btn btn-default" }) 
-        </div>
-        <hr>
+            <div class="post ">
+                <h3>@post.Title</h3>
+                <h6>@String.Format("{0:d MMMM yyyy}", post.CreationDate)</h6>
+                <p>@post.Description</p>
+                @Html.ActionLink("Czytaj Dalej..", "singlePost", "Home", new { id = post.PostID }, new { @class = "btn btn-default" })
+            </div>
+            <hr>
         }
     </div>
     <div class="col-md-3 col-md-offset-1">
         <h2>Category</h2>
-            <div class="list-group">
-                @foreach (var category in Model.Categories)
-                {
-              
-                <a href="@Url.Action("singleCategory", "Home",new { id=category.CategoryID})" class="list-group-item">
-                @category.Name <span style="text-align:left;" class="badge">14 views</span></a>
-                }               
-            </div>
+        <div class="list-group">
+            @foreach (var category in Model.Categories)
+            {
+
+                <a href="@Url.Action("singleCategory", "Home",new { id=category.CategoryID})" class="text-center list-group-item">
+                   <strong> @category.Name</strong>
+                </a>
+            }
+        </div>
         <h2>Tags</h2>
-@foreach (var tag in Model.Tags)
-{
-    <a href="@Url.Action("singleTag", "Home",new { id=tag.TagID })" class="btn btn-default  btn-lg" > 
-       
-        <span class="glyphicon glyphicon glyphicon-tags" aria-hidden="true"></span> @tag.Name
-    </a>
-}  
+        @foreach (var tag in Model.Tags)
+        {
+            <a href="@Url.Action("singleTag", "Home",new { id=tag.TagID })" class="btn btn-default  btn-lg">
+
+                <span class="glyphicon glyphicon glyphicon-tags" aria-hidden="true"></span> @tag.Name
+            </a>
+        }
     </div>
 </div>
