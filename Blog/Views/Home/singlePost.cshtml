@@ -6,6 +6,7 @@
 
     <div class="row">
         <h1>@Html.DisplayFor(model => model.Title)</h1>
+        <hr />
         <div class="col-md-8 ">
             <p class="lead">@Html.DisplayFor(model => model.Description)</p>
 
@@ -13,9 +14,7 @@
             <div class="tags">
                 @foreach (var tag in Model.Tags)
                 {
-
                 <span class="label label-default">@tag.Name</span>
-
                 }
             </div>
 
@@ -29,7 +28,7 @@
 
                 <dl class="dl-horizontal">
                     <label>Created at:</label>
-                    <p>@Html.DisplayFor(model => model.CreationDate)</p>
+                    <p>@String.Format("{0:d MMMM yyyy}", Model.CreationDate)</p>
                 </dl>
                 <hr>
                 
