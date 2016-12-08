@@ -13,7 +13,7 @@
         <div class="post col-md-4 well">
             <h3>@post.Title</h3>
             <h6>@String.Format("{0:d MMMM yyyy}", post.CreationDate)</h6>
-            <p>@post.Description</p>
+            <p>@post.Description.Substring(0, Math.Min(post.Description.Length, 200))...</p>
             @Html.ActionLink("Czytaj Dalej..", "singlePost", "Home", new { id = post.PostID }, new { @class = "btn btn-default" })
         </div>
 

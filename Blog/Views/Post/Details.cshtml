@@ -1,49 +1,26 @@
 ﻿@model Blog.Models.Post
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = @Html.DisplayFor(model => model.Title);
 }
 
-<h2>Details</h2>
+<div class="row">
 
-<div>
-    <h4>Post</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
-
-    </dl>
+    <div class="col-md-8 col-md-offset-2">
+        <h1>@Html.DisplayFor(model => model.Title)</h1>
+        <hr />
+        <h6>@String.Format("{0:d MMMM yyyy}", Model.CreationDate)</h6>
+        <p class="well">@Html.DisplayFor(model => model.Description)</p>
+        <hr>
+        <div class="tags">
+            @foreach (var tag in Model.Tags)
+            {
+                <span class="label label-default">@tag.Name</span>
+            }
+        </div>
+    </div>
 </div>
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |
     @Html.ActionLink("Back to List", "Index")
