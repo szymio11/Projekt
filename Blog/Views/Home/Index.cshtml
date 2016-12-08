@@ -24,7 +24,7 @@
         {
         <div class="post">
             <h3>@post.Title</h3>
-            <h6>@String.Format("{0:yyyy-MM-dd}", post.CreationDate)</h6>
+            <h6>@String.Format("{0:d-MMM-yyyy}", post.CreationDate)</h6>
             <p>@post.Description</p>
             @Html.ActionLink("Czytaj Dalej..", "singlePost","Home", new { id = post.PostID }, new { @class = "btn btn-default" }) 
         </div>

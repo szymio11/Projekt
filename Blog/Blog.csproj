@@ -172,6 +172,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Migrations\201612082000158_validpost.cs" />
+    <Compile Include="Migrations\201612082000158_validpost.Designer.cs">
+      <DependentUpon>201612082000158_validpost.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Global.asax.cs">
@@ -315,6 +319,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611102150382_add-data-to-table-TagPosts.resx">
       <DependentUpon>201611102150382_add-data-to-table-TagPosts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612082000158_validpost.resx">
+      <DependentUpon>201612082000158_validpost.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
