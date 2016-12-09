@@ -18,10 +18,11 @@
                 <span class="label label-default">@tag.Name</span>
             }
         </div>
+        <hr />
+        <p>
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }, new { @class = "btn btn-warning" })
+        </p>
     </div>
 </div>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PostID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
