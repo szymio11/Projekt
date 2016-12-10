@@ -12,7 +12,7 @@ namespace Blog.Models
             this.Tags = new HashSet<Tag>();
         }
         public int PostID { get; set; }
-
+        public ApplicationUser User { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
