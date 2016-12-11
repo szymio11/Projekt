@@ -13,9 +13,16 @@ namespace Blog.Controllers
         public ActionResult Index()
         {
             IndexViewModels viewModel = new IndexViewModels();
-            viewModel.Posts = db.Posts.Include(e => e.User);
+
+            viewModel.Posts = db.Posts
+                .Include(e => e.User)
+                .OrderByDescending(p => p.CreationDate);
+
             viewModel.Tags = db.Tags.ToList();
+
             viewModel.Categories = db.Categories.ToList();
+
+
             return View(viewModel);
         }
         public ActionResult singleCategory(int? id)

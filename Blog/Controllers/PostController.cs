@@ -8,6 +8,8 @@ using Blog.Models;
 using Blog.ViewModels;
 using System.Data.Entity.Infrastructure;
 using Microsoft.AspNet.Identity;
+using PagedList;
+using PagedList.Mvc;
 using System;
 
 namespace Blog.Controllers
@@ -19,10 +21,35 @@ namespace Blog.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Post
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, int? page)
         {
-            var posts = db.Posts.Include(p => p.Category);
-            return View(posts.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "title_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
+            var posts= from p in db.Posts
+                           select p;
+            posts.Include(e => e.User);
+
+            switch (sortOrder)
+                {
+                case "title_desc":
+                    posts = posts.OrderByDescending(p => p.Title);
+                    break;
+                case "Date":
+                    posts = posts.OrderBy(p => p.CreationDate);
+                    break;
+                case "date_desc":
+                    posts = posts.OrderByDescending(p => p.CreationDate);
+                    break;
+                default:
+                    posts = posts.OrderBy(p => p.Title);
+                    break;
+
+            }
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(posts.ToPagedList(pageNumber,pageSize));
         }
 
         // GET: Post/Details/5
