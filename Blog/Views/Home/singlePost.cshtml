@@ -10,14 +10,17 @@
         <h1>@Html.DisplayFor(model => model.Title)</h1>
         <hr />
         <h6>@String.Format("{0:d MMMM yyyy}", Model.CreationDate)</h6>
-        <p class="well">@Html.DisplayFor(model => model.Description)</p>
+        <p class="well">
+            @Html.DisplayFor(model => model.Description)
+            <div class="tags">
+                @foreach (var tag in Model.Tags)
+                {
+                    <span class="label label-default">@tag.Name</span>
+                }
+            </div>
+        </p>
         <hr>
-        <div class="tags">
-            @foreach (var tag in Model.Tags)
-            {
-                <span class="label label-default">@tag.Name</span>
-            }
-        </div>
+
         <div id="disqus_thread"></div>
         <script>
             (function () {

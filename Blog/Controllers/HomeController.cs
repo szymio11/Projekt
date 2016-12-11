@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using Blog.Models;
 using Blog.ViewModels;
 using System.Net;
+using System.Data.Entity;
 
 namespace Blog.Controllers
 {
@@ -12,7 +13,7 @@ namespace Blog.Controllers
         public ActionResult Index()
         {
             IndexViewModels viewModel = new IndexViewModels();
-            viewModel.Posts = db.Posts.ToList();
+            viewModel.Posts = db.Posts.Include(e => e.User);
             viewModel.Tags = db.Tags.ToList();
             viewModel.Categories = db.Categories.ToList();
             return View(viewModel);

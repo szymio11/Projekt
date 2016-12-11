@@ -188,6 +188,10 @@
     <Compile Include="Migrations\201612101425519_add-user-to-post.Designer.cs">
       <DependentUpon>201612101425519_add-user-to-post.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612111330218_AddNameToAplicationUser.cs" />
+    <Compile Include="Migrations\201612111330218_AddNameToAplicationUser.Designer.cs">
+      <DependentUpon>201612111330218_AddNameToAplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\PostModel.cs" />
     <Compile Include="Controllers\TagController.cs" />
     <Compile Include="Global.asax.cs">
@@ -338,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612101425519_add-user-to-post.resx">
       <DependentUpon>201612101425519_add-user-to-post.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612111330218_AddNameToAplicationUser.resx">
+      <DependentUpon>201612111330218_AddNameToAplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
