@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using Blog.Models;
 using Blog.ViewModels;
 using System.Data.Entity.Infrastructure;
+using Microsoft.AspNet.Identity;
+using System;
 
 namespace Blog.Controllers
 {
@@ -57,6 +59,9 @@ namespace Blog.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "PostID,Title,Description,CreationDate,CategoryID")] Post post, string[] selectedTags)
         {
+            var UserID = User.Identity.GetUserId();
+            var user = db.Users.Single(u => u.Id == UserID);
+            post.User = user;
             if (selectedTags != null)
             {
                 post.Tags = new List<Tag>();
@@ -72,6 +77,7 @@ namespace Blog.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+          
             PopulateAssignedTagData(post);
             ViewBag.CategoryID = new SelectList(db.Categories, "CategoryID", "Name", post.CategoryID);
             return View(post);
